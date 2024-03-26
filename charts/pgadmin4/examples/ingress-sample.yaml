@@ -1,0 +1,57 @@
+# Please edit the object below. Lines beginning with a '#' will be ignored,
+# and an empty file will abort the edit. If an error occurs while saving this file will be
+# reopened with the relevant failures.
+#
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    description: pgadmin4
+    displayName: pgadmin4
+    httpSend: /
+    ingress-lb: portal-ingress
+    kubernetes.io/ingress.class: portal-ingress
+    meta.helm.sh/release-name: pgadmin4
+    meta.helm.sh/release-namespace: kubeagi-system
+    nginx.ingress.kubernetes.io/enable-access-log: "false"    
+    nginx.ingress.kubernetes.io/enable-rewrite-log: "false"
+    nginx.ingress.kubernetes.io/load-balance: round_robin
+    nginx.ingress.kubernetes.io/proxy-body-size: ""
+    nginx.ingress.kubernetes.io/proxy-buffering: "on"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: 600s
+    nginx.ingress.kubernetes.io/proxy-next-upstream-timeout: 600s
+    nginx.ingress.kubernetes.io/proxy-read-timeout: 600s
+    nginx.ingress.kubernetes.io/proxy-send-timeout: 600s
+    nginx.ingress.kubernetes.io/server-alias: ""
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/upstream-vhost: $host
+  creationTimestamp: "2024-03-25T14:58:29Z"
+  generation: 18
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: pgadmin4
+    app.kubernetes.io/version: latest
+    helm.sh/chart: pgadmin4-1.24.0
+    ingress-lb: portal-ingress
+  name: pgadmin4
+  namespace: kubeagi-system
+  resourceVersion: "4127866"
+  uid: cd5640c3-8f56-430f-8678-d1a9466b7adc
+spec:
+  rules:
+  - host: pgadmin.kubeagi.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: pgadmin4
+            port:
+              number: 15432
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - portal.192.168.0.247.nip.io
+    secretName: oidc-server-root-secret
+status:
+  loadBalancer: {}
